@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Synchronized YouTube Viewer</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://www.youtube.com/iframe_api"></script>
+  </head>
+  <body>
+    <div class="container">
+      <h1>YouTube Video Sync</h1>
+      <p>Watch YouTube videos in sync with your friends!</p>
+      <form id="youtubeForm">
+        <input type="text" id="youtubeUrl" placeholder="Enter YouTube URL" />
+        <input type="submit" value="Start Watching" />
+      </form>
+    </div>
+    <div id="playerContainer"></div>
+    <script src="script.js"></script>
+  </body>
+</html>
