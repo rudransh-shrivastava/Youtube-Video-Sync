@@ -66,9 +66,17 @@ input[type="submit"]:hover {
   display: flex;
   flex-direction: row;
 }
-#progressBar {
-  height: 10px;
-  background-color: #007bff;
-  width: 0px; /* Will be updated dynamically */
-  transition: width 0.1s; /* Add a smooth transition effect */
+.progress-container {
+  width: 100%;
+  height: 10px; /* Adjust height as needed */
+  background-color: #ccc; /* Gray background */
+  cursor: pointer; /* Change cursor to indicate interactivity */
+}
+
+/* Styles for the progress bar */
+.progress-bar {
+  height: 100%;
+  width: 0; /* Will be updated dynamically */
+  background-color: #007bff; /* Blue color */
+  transition: width 0.2s; /* Add smooth transition effect */
 }
