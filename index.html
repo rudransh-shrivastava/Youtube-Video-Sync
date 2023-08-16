@@ -8,15 +8,23 @@
     <script src="https://www.youtube.com/iframe_api"></script>
   </head>
   <body>
-    <div class="container">
-      <h1>YouTube Video Sync</h1>
-      <p>Watch YouTube videos in sync with your friends!</p>
-      <form id="youtubeForm">
-        <input type="text" id="youtubeUrl" placeholder="Enter YouTube URL" />
-        <input type="submit" value="Start Watching" />
-      </form>
+    <div id="body-grid">
+      <div class="container">
+        <h1>YouTube Video Sync</h1>
+        <p>Watch YouTube videos in sync with your friends!</p>
+        <form id="youtubeForm">
+          <input type="text" id="youtubeUrl" placeholder="Enter YouTube URL" />
+          <input type="submit" value="Start Watching" />
+        </form>
+      </div>
+
+      <div id="playerContainer"></div>
+      <div id="playerControls">
+        <button id="playButton">Play</button>
+        <button id="pauseButton">Pause</button>
+        <div id="progressBar"></div>
+      </div>
     </div>
-    <div id="playerContainer"></div>
     <script src="script.js"></script>
   </body>
 </html>

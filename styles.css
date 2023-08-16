@@ -8,6 +8,10 @@ body {
   align-items: center;
   min-height: 100vh;
 }
+#body-grid {
+  display: flex;
+  flex-direction: column;
+}
 
 .container {
   background-color: #fff;
@@ -56,4 +60,15 @@ input[type="submit"] {
 
 input[type="submit"]:hover {
   background-color: #0056b3;
+}
+
+#playerControls {
+  display: flex;
+  flex-direction: row;
+}
+#progressBar {
+  height: 10px;
+  background-color: #007bff;
+  width: 0px; /* Will be updated dynamically */
+  transition: width 0.1s; /* Add a smooth transition effect */
 }
