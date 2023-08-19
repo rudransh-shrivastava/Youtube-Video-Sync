@@ -4,32 +4,39 @@ document.addEventListener("DOMContentLoaded", function () {
     const playerContainer = document.getElementById("playerContainer");
     let player;
     let playerInterval;
+    const formContainer = document.getElementById('formContainer');
+    const videoTitle = "Youtube Video";
 
     youtubeForm.addEventListener("submit", function (event) {
         event.preventDefault();
         const youtubeUrl = youtubeUrlInput.value;
+        const playerItems = document.getElementsByClassName('player-items');
         if (youtubeUrl) {
             const videoId = extractVideoId(youtubeUrl);
             if (videoId) {
-                // Remove the form
-                youtubeForm.style.display = "none";
-
-                // Load the YouTube video
+                document.getElementById('title').style.display = "block";
+                formContainer.style.display = "none";
                 loadYouTubeVideo(videoId);
+                // set title
+                document.getElementById('title').innerText = videoTitle;
+
+                // make the controls visible
+                for (i = 0; i < playerItems.length; i++) {
+                    playerItems[i].style.display = "inline";
+                }
+                document.getElementById('progressBar').style.display = 'block';
             }
         }
     });
     // Play button
     const playButton = document.getElementById('playButton');
     playButton.addEventListener('click', function (event) {
-        console.log("play");
         event.preventDefault();
         player.playVideo();
     });
     // Pause button
     const pauseButton = document.getElementById('pauseButton');
     pauseButton.addEventListener('click', function (event) {
-        console.log("pause");
         event.preventDefault();
         player.pauseVideo();
     });
@@ -54,9 +61,15 @@ document.addEventListener("DOMContentLoaded", function () {
             events: {
                 onStateChange: onStateChange,
             },
+            playerVars: {
+                'controls': 0,
+                'rel': 0,
+                'disablekb': 1,
+                'origin': 1,
+            },
         });
     }
-
+    // update the progress bar
     function onStateChange(event) {
         if (event.data === YT.PlayerState.PLAYING) {
             const interval = setInterval(function () {
@@ -74,11 +87,10 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
     const progressContainer = document.getElementById('progressContainer');
-
+    // makes the progress bar clickkable
     progressContainer.addEventListener('click', function (event) {
         const progressBar = document.getElementById('progressBar');
         const progressContainer = document.getElementById('progressContainer');
-        const progressBarWidth = progressBar.offsetWidth; // current progress
         const offsetX = event.offsetX; // x off set from the left
         const totalBarWidth = progressContainer.offsetWidth; // total width of the bar
         const duration = player.getDuration(); // total time of the video in sec

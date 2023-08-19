@@ -8,8 +8,9 @@
     <script src="https://www.youtube.com/iframe_api"></script>
   </head>
   <body>
+    <h1 id="title">Youtube Video Sync</h1>
     <div id="body-grid">
-      <div class="container">
+      <div class="container" id="formContainer">
         <h1>YouTube Video Sync</h1>
         <p>Watch YouTube videos in sync with your friends!</p>
         <form id="youtubeForm">
@@ -20,9 +21,9 @@
 
       <div id="playerContainer"></div>
       <div id="playerControls">
-        <button id="playButton">Play</button>
-        <button id="pauseButton">Pause</button>
-        <div class="progress-container" id="progressContainer">
+        <button id="playButton" class="player-items">Play</button>
+        <button id="pauseButton" class="player-items">Pause</button>
+        <div class="progress-container player-items" id="progressContainer">
           <div class="progress-bar" id="progressBar"></div>
         </div>
       </div>
