@@ -1,11 +1,11 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const youtubeForm = document.getElementById("youtubeForm");
-    const youtubeUrlInput = document.getElementById("youtubeUrl");
-    const playerContainer = document.getElementById("playerContainer");
+    const youtubeForm = document.getElementById("youtube-form");
+    const youtubeUrlInput = document.getElementById("youtube-url");
+    const playerContainer = document.getElementById("player-container");
     let player;
     let playerInterval;
-    const formContainer = document.getElementById('formContainer');
-    const videoTitle = "Youtube Video";
+    const formContainer = document.getElementById('form-container');
+    const videoTitle = "Youtube Video Title Comes Here";
 
     youtubeForm.addEventListener("submit", function (event) {
         event.preventDefault();
@@ -24,18 +24,18 @@ document.addEventListener("DOMContentLoaded", function () {
                 for (i = 0; i < playerItems.length; i++) {
                     playerItems[i].style.display = "inline";
                 }
-                document.getElementById('progressBar').style.display = 'block';
+                document.getElementById('progress-bar').style.display = 'block';
             }
         }
     });
     // Play button
-    const playButton = document.getElementById('playButton');
+    const playButton = document.getElementById('play-button');
     playButton.addEventListener('click', function (event) {
         event.preventDefault();
         player.playVideo();
     });
     // Pause button
-    const pauseButton = document.getElementById('pauseButton');
+    const pauseButton = document.getElementById('pause-button');
     pauseButton.addEventListener('click', function (event) {
         event.preventDefault();
         player.pauseVideo();
@@ -50,11 +50,11 @@ document.addEventListener("DOMContentLoaded", function () {
         return match ? match[1] : null;
     }
     // Progress bar and seeking
-    const progressBar = document.getElementById('progressBar');
-
+    const progressBar = document.getElementById('progress-bar');
+    // loading the youtube video embed with appropriate configs
     function loadYouTubeVideo(videoId) {
         playerContainer.innerHTML = ""; // Clear any previous content
-        player = new YT.Player("playerContainer", {
+        player = new YT.Player("player-container", {
             height: "315",
             width: "560",
             videoId: videoId,
@@ -86,11 +86,11 @@ document.addEventListener("DOMContentLoaded", function () {
             clearInterval(playerInterval);
         }
     }
-    const progressContainer = document.getElementById('progressContainer');
+    const progressContainer = document.getElementById('progress-container');
     // makes the progress bar clickkable
     progressContainer.addEventListener('click', function (event) {
-        const progressBar = document.getElementById('progressBar');
-        const progressContainer = document.getElementById('progressContainer');
+        const progressBar = document.getElementById('progress-bar');
+        const progressContainer = document.getElementById('progress-container');
         const offsetX = event.offsetX; // x off set from the left
         const totalBarWidth = progressContainer.offsetWidth; // total width of the bar
         const duration = player.getDuration(); // total time of the video in sec

@@ -40,16 +40,16 @@ body {
 }
 /* remove title */
 
-#body-grid {
+#form-section {
   display: flex;
   flex-direction: column;
   margin: 2rem;
   margin-top: 6rem;
 }
-#body-grid div h1 {
+#form-section div h1 {
   font-size: 3rem;
 }
-.container {
+#form-container {
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -59,7 +59,7 @@ body {
   margin-bottom: 10rem;
 }
 /* The form  */
-#youtubeForm {
+#youtube-form {
   display: flex;
 }
 
@@ -89,14 +89,14 @@ input[type="submit"]:hover {
   background-color: #000;
 }
 
-#playerControls {
+#player-controls {
   display: flex;
   flex-direction: row;
 }
-#playerControls * {
+#player-controls * {
   display: none;
 }
-.progress-container {
+#progress-container {
   width: 100%;
   height: 10px;
   background-color: #ccc;
@@ -104,7 +104,7 @@ input[type="submit"]:hover {
 }
 
 /* Styles for the progress bar */
-.progress-bar {
+#progress-bar {
   height: 100%;
   width: 0; /* Will be updated dynamically */
   background-color: #007bff;
