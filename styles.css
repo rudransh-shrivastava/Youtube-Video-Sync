@@ -1,9 +1,7 @@
 :root {
-  --white: rgb(224, 225, 220);
-  --light-red: rgb(223, 15, 45);
-  --dark-red: rgb(77, 1, 10);
   --blue-gray: rgb(15, 26, 36);
-  --black: rgb(14, 20, 29);
+  --light-pink: rgb(236, 209, 209);
+  --light-gray: rgb(190, 177, 177);
 }
 body {
   font-family: Arial, monospace;
@@ -27,16 +25,14 @@ body {
   padding: 3rem;
 }
 #main-heading {
-  color: rgb(236, 209, 209);
+  color: var(--light-pink);
   font-size: 4rem;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  margin: 1rem 0;
 }
 #main-paragraph {
-  color: rgb(190, 177, 177);
+  color: var(--light-gray);
   font-size: 1.75rem;
-  margin-bottom: 0;
-  margin-top: 1.5rem;
+  margin: 1.5rem 0 0;
   text-align: center;
 }
 #title {
@@ -59,7 +55,7 @@ body {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   width: 40rem;
   text-align: center;
-  color: rgb(236, 209, 209);
+  color: var(--light-pink);
   margin-bottom: 10rem;
 }
 /* The form  */
@@ -67,32 +63,30 @@ body {
   display: flex;
 }
 
-input[type="text"] {
-  width: 90%;
-  padding: 10px;
-  margin: 5px;
-  border: 1px solid #565151;
-  border-radius: 0.2rem;
-  font-size: 0.9rem;
-  outline: none;
-  background-color: rgba(0, 0, 0, 0.1);
-  color: #fff;
-}
-
+input[type="text"],
 input[type="submit"] {
   background-color: rgba(0, 0, 0, 0.1);
   color: #fff;
-  padding: 10px 20px;
-  margin: 5px;
   border: 1px solid #565151;
   border-radius: 0.2rem;
+  margin: 5px;
   font-size: 0.9rem;
+}
+
+input[type="text"] {
+  width: 90%;
+  padding: 10px;
+  outline: none;
+}
+
+input[type="submit"] {
+  padding: 10px 20px;
   cursor: pointer;
   transition: background-color 0.2s;
 }
 
 input[type="submit"]:hover {
-  background-color: #0056b3;
+  background-color: #000;
 }
 
 #playerControls {
@@ -104,17 +98,17 @@ input[type="submit"]:hover {
 }
 .progress-container {
   width: 100%;
-  height: 10px; /* Adjust height as needed */
-  background-color: #ccc; /* Gray background */
-  cursor: pointer; /* Change cursor to indicate interactivity */
+  height: 10px;
+  background-color: #ccc;
+  cursor: pointer;
 }
 
 /* Styles for the progress bar */
 .progress-bar {
   height: 100%;
   width: 0; /* Will be updated dynamically */
-  background-color: #007bff; /* Blue color */
-  transition: width 0.2s; /* Add smooth transition effect */
+  background-color: #007bff;
+  transition: width 0.2s;
 }
 @media (max-width: 936px) {
   /* body {
