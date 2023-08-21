@@ -9,7 +9,10 @@
   </head>
   <body>
     <div id="main">
-      <h1 id="main-heading">Watch in Sync</h1>
+      <h1 id="main-heading">
+        <span id="watch-text" data-value="Watch">Watch</span> in
+        <span id="sync-text" data-value="Sync">Sync</span>
+      </h1>
       <p id="main-paragraph">
         Seamlessly enjoy YouTube videos with friends and family, no matter where
         they are.
@@ -22,10 +25,13 @@
     </div>
     <div id="body-grid">
       <div class="container" id="formContainer">
-        <h1>YouTube Video</h1>
-        <p>Watch YouTube videos in sync with your friends!</p>
+        <h1>Create Room</h1>
         <form id="youtubeForm">
-          <input type="text" id="youtubeUrl" placeholder="Enter YouTube URL" />
+          <input
+            type="text"
+            id="youtubeUrl"
+            placeholder="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+          />
           <input type="submit" value="Start Watching" />
         </form>
       </div>

@@ -100,4 +100,33 @@ document.addEventListener("DOMContentLoaded", function () {
         player.seekTo(seekTime, true);
     });
 
+    // text hover
+    // Sync
+    document.querySelector('#sync-text').onmouseover = event => {
+        hoverEffect(event.target);
+    };
+    // Watch
+    document.querySelector('#watch-text').onmouseover = event => {
+        hoverEffect(event.target);
+    };
+
+    // hover effect
+    const letters = 'abcdefghijklmnopqrstuvwxyz';
+    function hoverEffect(text) {
+        let i = 0;
+        const interval = setInterval(() => {
+            text.innerText = text.innerText.split("")
+                .map((letter, index) => {
+                    if (index < i) {
+                        return text.dataset.value[index];
+                    }
+                    return letters[Math.floor(Math.random() * 26)]
+                })
+                .join("");
+            if (i > text.dataset.value.length) {
+                clearInterval(interval);
+            }
+            i += 1 / 4;
+        }, 40);
+    }
 });
