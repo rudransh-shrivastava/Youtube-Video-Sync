@@ -1,11 +1,13 @@
 document.addEventListener("DOMContentLoaded", function () {
+    const formContainer = document.getElementById('form-container');
     const youtubeForm = document.getElementById("youtube-form");
     const youtubeUrlInput = document.getElementById("youtube-url");
     const playerContainer = document.getElementById("player-container");
+    // const videoTitle = "Youtube Video Title Comes Here";
+    const playPauseButton = document.getElementById('play-pause-button');
+    const progressBar = document.getElementById('progress-bar');
     let player;
     let playerInterval;
-    const formContainer = document.getElementById('form-container');
-    const videoTitle = "Youtube Video Title Comes Here";
 
     youtubeForm.addEventListener("submit", function (event) {
         event.preventDefault();
@@ -14,11 +16,11 @@ document.addEventListener("DOMContentLoaded", function () {
         if (youtubeUrl) {
             const videoId = extractVideoId(youtubeUrl);
             if (videoId) {
-                document.getElementById('title').style.display = "block";
+                // document.getElementById('title').style.display = "block";
                 formContainer.style.display = "none";
                 loadYouTubeVideo(videoId);
                 // set title
-                document.getElementById('title').innerText = videoTitle;
+                // document.getElementById('title').innerText = videoTitle;
 
                 // make the controls visible
                 for (i = 0; i < playerItems.length; i++) {
@@ -28,31 +30,29 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }
     });
-    // Play button
-    const playButton = document.getElementById('play-button');
-    playButton.addEventListener('click', function (event) {
-        event.preventDefault();
-        player.playVideo();
-    });
-    // Pause button
-    const pauseButton = document.getElementById('pause-button');
-    pauseButton.addEventListener('click', function (event) {
-        event.preventDefault();
-        player.pauseVideo();
-    });
 
+    let isPlaying = false;
+    playPauseButton.addEventListener('click', function (event) {
+        // this is what the play / pause button will do when clicked, this will play or pause the video.
+        event.preventDefault();
+        isPlaying = !isPlaying;
+        if (isPlaying) {
+            player.pauseVideo();
+        } else {
+            player.playVideo();
+        }
+    });
 
     function extractVideoId(url) {
         // Extract the video ID from the YouTube URL
-        // You can use regular expressions or other methods to extract the ID
+        // We can use regular expressions or other methods to extract the ID
         // URL format: https://www.youtube.com/watch?v=VIDEO_ID
         const match = url.match(/(?:\?v=|\/embed\/|\/\d\/|\/vi\/|\/e\/|\/v\/|https:\/\/youtu.be\/)([a-zA-Z0-9_-]{11})/);
         return match ? match[1] : null;
     }
-    // Progress bar and seeking
-    const progressBar = document.getElementById('progress-bar');
-    // loading the youtube video embed with appropriate configs
+
     function loadYouTubeVideo(videoId) {
+        // this function loads the youtube video with appropriate player variables, height, and width,  we remove the normal youtube controls, autoplay the video, and disable the keyboard shortcuts.
         playerContainer.innerHTML = ""; // Clear any previous content
         player = new YT.Player("player-container", {
             height: "315",
@@ -63,14 +63,18 @@ document.addEventListener("DOMContentLoaded", function () {
             },
             playerVars: {
                 'controls': 0,
-                'rel': 0,
+                'rel': 1,
                 'disablekb': 1,
                 'origin': 1,
+                "autoplay": 1,
             },
         });
     }
-    // update the progress bar
+
     function onStateChange(event) {
+        /* In this function we are handing everything when the state of the player changes.
+        First we change the width of the progress bar according to the duration.
+        */
         if (event.data === YT.PlayerState.PLAYING) {
             const interval = setInterval(function () {
                 const currentTime = player.getCurrentTime();
@@ -79,11 +83,22 @@ document.addEventListener("DOMContentLoaded", function () {
                 progressBar.style.width = `${progress}%`;
             }, 250);
 
-            // Store the interval ID so you can clear it later
+            // Store the interval ID so we can clear it later
             playerInterval = interval;
         } else {
             // Clear the interval when the video is paused or ended
             clearInterval(playerInterval);
+        }
+
+        /* If the user pauses or plays the video by clicking on it, we handle it here.
+        Then set appropriate background images to the buttons by changing their class
+        */
+        if (event.data === YT.PlayerState.PAUSED) {
+            playPauseButton.classList.remove('pause');
+            playPauseButton.classList.add('play');
+        } else if (event.data === YT.PlayerState.PLAYING) {
+            playPauseButton.classList.remove('play');
+            playPauseButton.classList.add('pause');
         }
     }
     const progressContainer = document.getElementById('progress-container');

@@ -35,9 +35,9 @@ body {
   margin: 1.5rem 0 0;
   text-align: center;
 }
-#title {
+/* #title {
   display: none;
-}
+} */
 /* remove title */
 
 #form-section {
@@ -92,22 +92,38 @@ input[type="submit"]:hover {
 #player-controls {
   display: flex;
   flex-direction: row;
+  padding: 0.1rem;
 }
 #player-controls * {
   display: none;
 }
+#play-pause-button {
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 2rem;
+  height: 2rem;
+  border: none;
+}
+.play {
+  background-image: url("./img/play-icon.png");
+}
+.pause {
+  background-image: url("./img/pause-icon.png");
+}
 #progress-container {
   width: 100%;
-  height: 10px;
+  height: 1rem;
   background-color: #ccc;
   cursor: pointer;
+  margin: 0.5rem;
 }
 
 /* Styles for the progress bar */
 #progress-bar {
   height: 100%;
   width: 0; /* Will be updated dynamically */
-  background-color: #007bff;
+  background-color: red;
   transition: width 0.2s;
 }
 @media (max-width: 936px) {
