@@ -4,5 +4,3 @@
 
 # TODO LIST
 ## Add web socket support
-## Make the website look prettier
-
