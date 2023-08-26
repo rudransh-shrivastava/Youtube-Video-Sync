@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
+    const socket = io('ws://localhost:8080');
     const formContainer = document.getElementById('form-container');
     const youtubeForm = document.getElementById("youtube-form");
     const youtubeUrlInput = document.getElementById("youtube-url");
@@ -144,4 +145,13 @@ document.addEventListener("DOMContentLoaded", function () {
             i += 1 / 4;
         }, 40);
     }
+
+    socket.on('message', text => {
+        // 3 
+        // const el = document.createElement('li');
+        // el.innerHTML = text;
+        // document.querySelector('ul').appendChild(el)
+
+    });
+    // 1
 });
