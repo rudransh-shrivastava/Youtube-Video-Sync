@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const progressBar = document.getElementById('progress-bar');
     let player;
     let playerInterval;
+    let isPlaying;
 
     youtubeForm.addEventListener("submit", function (event) {
         event.preventDefault();
@@ -32,12 +33,35 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    let isPlaying = false;
+    function sendPlay() {
+        socket.emit("playingStatus", {
+            isPlaying: YT.PlayerState.PLAYING,
+        })
+    }
+
+    function sendPause() {
+        socket.emit("playingStatus", {
+            isPlaying: YT.PlayerState.PAUSED,
+        })
+    }
+
     playPauseButton.addEventListener('click', function (event) {
-        // this is what the play / pause button will do when clicked, this will play or pause the video.
+        // This is what the play / pause button will do when clicked.
+        // This sends a message to the backend to play/pause the video.
         event.preventDefault();
-        isPlaying = !isPlaying;
-        if (isPlaying) {
+
+        // 1
+        if (isPlaying == YT.PlayerState.PLAYING) {
+            sendPause();
+        } else {
+            sendPlay();
+        }
+    });
+
+    // 3
+    socket.on("playingStatus", text => {
+        // Listening for playing status i.e. playing or paused.
+        if (text.isPlaying == YT.PlayerState.PAUSED) {
             player.pauseVideo();
         } else {
             player.playVideo();
@@ -76,6 +100,7 @@ document.addEventListener("DOMContentLoaded", function () {
         /* In this function we are handing everything when the state of the player changes.
         First we change the width of the progress bar according to the duration.
         */
+        isPlaying = event.data;
         if (event.data === YT.PlayerState.PLAYING) {
             const interval = setInterval(function () {
                 const currentTime = player.getCurrentTime();
@@ -97,12 +122,16 @@ document.addEventListener("DOMContentLoaded", function () {
         if (event.data === YT.PlayerState.PAUSED) {
             playPauseButton.classList.remove('pause');
             playPauseButton.classList.add('play');
+            sendPause();
         } else if (event.data === YT.PlayerState.PLAYING) {
             playPauseButton.classList.remove('play');
             playPauseButton.classList.add('pause');
+            sendPlay();
         }
     }
+
     const progressContainer = document.getElementById('progress-container');
+    // 1
     // makes the progress bar clickkable
     progressContainer.addEventListener('click', function (event) {
         const progressBar = document.getElementById('progress-bar');
@@ -112,9 +141,15 @@ document.addEventListener("DOMContentLoaded", function () {
         const duration = player.getDuration(); // total time of the video in sec
         const progressPercent = offsetX / totalBarWidth * 100; // percent progress
         const seekTime = duration * progressPercent / 100;
-
-        player.seekTo(seekTime, true);
+        socket.emit("durationChange", {
+            seconds: seekTime,
+        })
     });
+
+    // 3
+    socket.on("durationChange", seekTime => {
+        player.seekTo(seekTime.seconds, true); // seek to the clicked time
+    })
 
     // text hover
     // Sync
@@ -146,12 +181,4 @@ document.addEventListener("DOMContentLoaded", function () {
         }, 40);
     }
 
-    socket.on('message', text => {
-        // 3 
-        // const el = document.createElement('li');
-        // el.innerHTML = text;
-        // document.querySelector('ul').appendChild(el)
-
-    });
-    // 1
 });
